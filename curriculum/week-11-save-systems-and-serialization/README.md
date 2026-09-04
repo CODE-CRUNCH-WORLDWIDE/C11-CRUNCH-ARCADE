@@ -25,6 +25,14 @@ By the end of this week, you will be able to:
 - **Recover** from corruption by keeping a most-recent-good backup. Every successful load promotes the loaded file to `save.latest`. Every write rotates `save.latest` to `save.previous` before writing `save.latest`. On a load failure of `save.latest`, the loader falls back to `save.previous`. The rotation is two extra rename calls and the difference between "game crashes on launch" and "game loads the autosave from twelve minutes ago."
 - **Cite** the four free references — *Godot 4.x* saving-games docs, *MessagePack* spec, *Pydantic v2* docs, *Steamworks Steam Cloud* docs — and explain which is for the engine integration, which is for the on-disk format, which is for the loader-side validation, and which is for the cloud-replication layer.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Design a save format that survives shipping: schema versioning, validation on load, integrity checking and recovery. |
+| Industry | Refuse a deserialiser that will execute attacker-controlled bytes, and be able to name the incident that proves the point. |
+| Beyond the bar | It hardens the format past anything a syllabus asks: an HMAC-SHA-256 signed envelope over the atomic write, and a pure-GDScript MessagePack codec whose bytes interchange with `msgpack-python` — `challenges/challenge-02-msgpack-in-godot.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1-10**. Specifically:

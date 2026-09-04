@@ -27,6 +27,14 @@ By the end of this week, you will be able to:
 - **Compare** a before-juice and after-juice version of the same game and articulate, in writing, which juice tricks contributed the most to the feel — and which were noise.
 - **Frame-budget** the juice pass: the animation update is ~0.3 ms, the particle pass is ~0.5 ms, the screen-shake math is essentially free. Juice is cheap; the question is taste, not performance.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Animate a character and bind its presentation to the state the game is actually in. |
+| Industry | Tune a feel parameter by dose rather than by taste: try three magnitudes, watch somebody play each one, keep the one that reads as impact. |
+| Beyond the bar | It treats the tuning as measurable work — three screen-shake doses compared at rest and in motion, a sixth easing curve plotted on paper before it is coded, and variable jump height derived from the curve — `homework.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1, 2, 3, 4, and 5**. Specifically:

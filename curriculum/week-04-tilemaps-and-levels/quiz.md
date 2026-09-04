@@ -11,6 +11,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Tiled, PyTMX, Pygame.
 - D) GID, firstgid, tile-index.
 
+<details>
+<summary>Answer</summary>
+
+**A** — Tileset (the image), grid (the array of indices), renderer (the code that walks the grid and blits). (Lecture 1 §1.)
+
+</details>
+
 ---
 
 **Q2.** In a Tiled-exported JSON map, what does GID `0` mean?
@@ -19,6 +26,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) An empty cell — nothing is drawn there.
 - C) The player spawn.
 - D) An error code that means the file is corrupt.
+
+<details>
+<summary>Answer</summary>
+
+**B** — GID 0 means empty. Always. Across every Tiled map ever exported. The first non-empty tile in the first tileset is GID 1. (Lecture 1 §4.)
+
+</details>
 
 ---
 
@@ -29,6 +43,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The map has two tilesets and you only loaded the first.
 - D) Pygame's `subsurface` is broken on your version.
 
+<details>
+<summary>Answer</summary>
+
+**B** — The off-by-one between GID space (1-indexed for "real" tiles, 0 reserved for empty) and Python list space (0-indexed). Use `gid - 1` when looking up the tile surface. (Lecture 1 §7.)
+
+</details>
+
 ---
 
 **Q4.** Lecture 1 gives four coordinate conversion functions. Which line correctly converts a world-space pixel position to its containing tile cell?
@@ -37,6 +58,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `(int(wx // TILE), int(wy // TILE))`
 - C) `(int(wx) // TILE_W, int(wy) // TILE_H)` where TILE_W and TILE_H come from the map file.
 - D) Both B and C are correct.
+
+<details>
+<summary>Answer</summary>
+
+**D** — Both B and C are correct. `//` is floor division. Pulling `TILE_W`/`TILE_H` from the file is the production-correct version because Tiled supports non-square tiles. (Lecture 1 §2.)
+
+</details>
 
 ---
 
@@ -47,6 +75,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Two floats (x and y) representing the world point at the top-left of the screen; the screen draws at `world - cam`.
 - D) A separate render target you blit the whole world into and then scroll.
 
+<details>
+<summary>Answer</summary>
+
+**C** — Two floats and a subtraction. That is the whole camera abstraction. (Lecture 2 §1.)
+
+</details>
+
 ---
 
 **Q6.** The frame-rate-independent lerp factor for a smooth camera is `t = 1 - 0.001 ** (dt * speed)`. Why is the naive `cam.x += (desired - cam.x) * 0.1` wrong?
@@ -55,6 +90,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) The naive version's "0.1" is a per-frame factor, which ties the follow speed to the frame rate. At 30 fps the camera lags; at 144 fps it overshoots. The exponential form is dt-correct.
 - C) `pow` is faster than multiplication, so the exponential is preferred for performance.
 - D) Floating-point precision; the multiplication accumulates error.
+
+<details>
+<summary>Answer</summary>
+
+**B** — The naive form is frame-rate-dependent. The exponential form converges to the same fractional approach regardless of dt. This is the same trick you'll use for animation easing in Week 6. (Lecture 2 §2.2.)
+
+</details>
 
 ---
 
@@ -65,6 +107,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `colliderect` returns the wrong answer for tile-aligned rectangles.
 - D) It doesn't handle edge tiles correctly.
 
+<details>
+<summary>Answer</summary>
+
+**B** — The cull is in the *range*, not in the *test*. Iterating every cell and testing each one is `O(n_total)`; computing the visible range upfront is `O(n_visible)`. The latter is 25× faster on a 200×100 world. (Lecture 2 §4.)
+
+</details>
+
 ---
 
 **Q8.** A 200×100 tile world (20,000 cells) renders naively at ~9 ms / frame. After integer-math culling (viewport ~600 tiles), the same render is closest to:
@@ -73,6 +122,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) ~6 ms.
 - C) ~1.2 ms.
 - D) ~0 ms (culling is free).
+
+<details>
+<summary>Answer</summary>
+
+**C** — ~1.2 ms. ~25× speedup is the realistic number on modern Python+Pygame. (Lecture 2 §5, frame-budget tile.)
+
+</details>
 
 ---
 
@@ -83,6 +139,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Dead-zone follow.
 - D) Parallax follow.
 
+<details>
+<summary>Answer</summary>
+
+**C** — Dead-zone. The camera doesn't move at all while the player wanders inside the centre window; it only catches up when they exit. (Lecture 2 §2.3.)
+
+</details>
+
 ---
 
 **Q10.** Per Lecture 1, you have a friend who is comfortable in spreadsheets but doesn't program. Which file format would you choose for them to edit your level layout?
@@ -92,26 +155,16 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `.csv` — every spreadsheet exports it; no editor install required.
 - D) A `.py` file with a Python list literal — easiest to read.
 
----
-
-## Answer key
-
 <details>
-<summary>Click to reveal answers</summary>
+<summary>Answer</summary>
 
-1. **A** — Tileset (the image), grid (the array of indices), renderer (the code that walks the grid and blits). (Lecture 1 §1.)
-2. **B** — GID 0 means empty. Always. Across every Tiled map ever exported. The first non-empty tile in the first tileset is GID 1. (Lecture 1 §4.)
-3. **B** — The off-by-one between GID space (1-indexed for "real" tiles, 0 reserved for empty) and Python list space (0-indexed). Use `gid - 1` when looking up the tile surface. (Lecture 1 §7.)
-4. **D** — Both B and C are correct. `//` is floor division. Pulling `TILE_W`/`TILE_H` from the file is the production-correct version because Tiled supports non-square tiles. (Lecture 1 §2.)
-5. **C** — Two floats and a subtraction. That is the whole camera abstraction. (Lecture 2 §1.)
-6. **B** — The naive form is frame-rate-dependent. The exponential form converges to the same fractional approach regardless of dt. This is the same trick you'll use for animation easing in Week 6. (Lecture 2 §2.2.)
-7. **B** — The cull is in the *range*, not in the *test*. Iterating every cell and testing each one is `O(n_total)`; computing the visible range upfront is `O(n_visible)`. The latter is 25× faster on a 200×100 world. (Lecture 2 §4.)
-8. **C** — ~1.2 ms. ~25× speedup is the realistic number on modern Python+Pygame. (Lecture 2 §5, frame-budget tile.)
-9. **C** — Dead-zone. The camera doesn't move at all while the player wanders inside the centre window; it only catches up when they exit. (Lecture 2 §2.3.)
-10. **C** — CSV. The level designer doesn't need Tiled or your IDE; they edit in LibreOffice or Google Sheets. (Lecture 1 §3.)
+**C** — CSV. The level designer doesn't need Tiled or your IDE; they edit in LibreOffice or Google Sheets. (Lecture 1 §3.)
+
+
+---
 
 </details>
 
----
-
 If you scored under 7, re-read the lecture sections cited in the answers you missed. If you scored 9 or 10, you're ready for the [homework](./homework.md).
+
+---

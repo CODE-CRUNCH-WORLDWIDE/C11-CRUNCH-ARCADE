@@ -25,6 +25,14 @@ By the end of this week, you will be able to:
 - **Reason** about the *trust model* of a save file — a local save is player-owned, so anti-cheat protection is theatre, but checksum-based corruption detection is real engineering. The two are not the same.
 - **Frame-budget** the save system: a JSON save of a small RPG state is ~2 KB and takes ~1 ms to write. Autosave is *free* if you do it on a level boundary, not every frame.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4053` — Persist and restore game state across sessions, and decide what belongs on disk and what does not. |
+| Industry | Make a write survive a crash — temp file, fsync, rename, previous-good backup — and prove it by killing the process mid-write instead of asserting it. |
+| Beyond the bar | The reference implementations arrive with their teardown published beside them: what each file teaches, what "done" looks like, and the common bugs with symptom, cause and fix — `exercises/SOLUTIONS.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1–6**. Specifically:

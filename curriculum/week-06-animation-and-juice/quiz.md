@@ -11,6 +11,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Mechanics, dynamics, aesthetics.
 - D) FPS, latency, throughput.
 
+<details>
+<summary>Answer</summary>
+
+**B** — Real-time control, simulated physical space, polish. Swink's three pillars, *Game Feel* (2009). Week 1-5 covered the first two pillars; Week 6 is the third. (Lecture 2 §9.)
+
+</details>
+
 ---
 
 **Q2.** A sprite sheet is a single PNG containing a grid of frames. In Pygame, the right way to extract one frame is:
@@ -19,6 +26,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `pygame.transform.scale(surface, (frame_w, frame_h))` returning a smaller copy.
 - C) `surface.subsurface(rect)` — a no-copy view into the parent surface.
 - D) `pygame.draw.rect(surface, color, rect)` and trust the pixel layout.
+
+<details>
+<summary>Answer</summary>
+
+**C** — `subsurface(rect)` returns a no-copy view. Zero allocation per frame. The whole point of a sprite sheet vs. thirty separate PNGs. (Lecture 1 §2.)
+
+</details>
 
 ---
 
@@ -29,6 +43,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `int(elapsed_t / fps) % len(frames)` — using elapsed divided by fps.
 - D) The display's refresh rate divided by the animation's fps.
 
+<details>
+<summary>Answer</summary>
+
+**B** — `int(elapsed_t * fps) % len(frames)`. The animation rate is decoupled from the render rate. A 12-fps clip advances every 83 ms regardless of whether the screen is rendering at 30, 60, or 144 fps. (Lecture 1 §5.)
+
+</details>
+
 ---
 
 **Q4.** The two-line `lerp(a, b, t)` function returns `a + (b - a) * t`. Which value of `t` returns the midpoint between `a` and `b`?
@@ -37,6 +58,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `t = 0.5`.
 - C) `t = 1.0`.
 - D) `t = 2.0`.
+
+<details>
+<summary>Answer</summary>
+
+**B** — `t = 0.5`. `lerp(a, b, 0.5) = a + (b-a) * 0.5 = (a+b)/2`. Memorise the two lines. (Lecture 2 §1.)
+
+</details>
 
 ---
 
@@ -47,6 +75,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `ease_out_back`.
 - D) `ease_quadratic`.
 
+<details>
+<summary>Answer</summary>
+
+**C** — `ease_out_back` is the overshoot curve. The 1.70158 constant is Robert Penner's; values 1.5-2.0 give a ~10% overshoot before settling. Used for "pop" juice on score-changes, button presses, coin pickups. (Lecture 2 §2.)
+
+</details>
+
 ---
 
 **Q6.** Squash-and-stretch on a jumping character is applied to:
@@ -55,6 +90,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) The character's `vx` and `vy`, so the physics scales with the animation.
 - C) The character's drawn frame only, via `pygame.transform.scale_by`. The hitbox does not deform; the art does.
 - D) The screen-shake amplitude, indirectly.
+
+<details>
+<summary>Answer</summary>
+
+**C** — Squash-and-stretch is on the *art*, not the hitbox. `pygame.transform.scale_by(frame, (1.0, scale_y))` and blit. The collision rectangle does not deform. (Lecture 2 §4, "Three things to notice", item 3.)
+
+</details>
 
 ---
 
@@ -65,6 +107,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) A boss-scale explosion. Player hits should use ~6 px; landings ~4 px. 24 px is the maximum; past this, screen readability suffers.
 - D) Never; 24 px is always too much.
 
+<details>
+<summary>Answer</summary>
+
+**C** — 24 px / 400 ms is boss-explosion territory; player hits should be ~6 px / 150 ms; landings ~4 px / 100 ms. The dose matters more than the formula. (Lecture 2 §5, Nijman tuning table.)
+
+</details>
+
 ---
 
 **Q8.** A particle emitter spawning dust on a hard landing should be triggered:
@@ -73,6 +122,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) From the input handler, when SPACE is pressed.
 - C) From the `enter()` hook of the state the character arrives in (here, `IdleState` or `RunState`, with a "just arrived from airborne" flag). Presentation is bound to state transitions, not physics or input.
 - D) From the collision-resolution code, immediately after the AABB-vs-grid pass sets `grounded = True`.
+
+<details>
+<summary>Answer</summary>
+
+**C** — Presentation is bound to state transitions. The "arrived from airborne" flag is the canonical cross-state field. Spawning from the input handler or collision code is the "scattered effects" antipattern the lecture explicitly argues against. (Lecture 2 §6, §7.)
+
+</details>
 
 ---
 
@@ -83,6 +139,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Played one-shot on every frame the character is in `RunState`.
 - D) Mixed in the audio system as an ambient track, independent of state.
 
+<details>
+<summary>Answer</summary>
+
+**A** — `enter()` starts the loop, `exit()` stops it. The pattern that pairs setup with teardown was named in Week 5 Lecture 2 §2 as "asymmetric `enter`/`exit` is the State pattern's version of `malloc` without `free`." Week 6 §7 lights it up with SFX. (Lecture 2 §7.)
+
+</details>
+
 ---
 
 **Q10.** Nijman's *The Art of Screenshake* enumerates ~20 cheap juice tricks. Week 6's exercises and mini-project implement six of them. The single most-cited and most-effective trick — the one the talk is named after — is:
@@ -92,26 +155,16 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Screen shake, decayed over time, triggered on impacts.
 - D) Chromatic aberration.
 
----
-
-## Answer key
-
 <details>
-<summary>Click to reveal answers</summary>
+<summary>Answer</summary>
 
-1. **B** — Real-time control, simulated physical space, polish. Swink's three pillars, *Game Feel* (2009). Week 1-5 covered the first two pillars; Week 6 is the third. (Lecture 2 §9.)
-2. **C** — `subsurface(rect)` returns a no-copy view. Zero allocation per frame. The whole point of a sprite sheet vs. thirty separate PNGs. (Lecture 1 §2.)
-3. **B** — `int(elapsed_t * fps) % len(frames)`. The animation rate is decoupled from the render rate. A 12-fps clip advances every 83 ms regardless of whether the screen is rendering at 30, 60, or 144 fps. (Lecture 1 §5.)
-4. **B** — `t = 0.5`. `lerp(a, b, 0.5) = a + (b-a) * 0.5 = (a+b)/2`. Memorise the two lines. (Lecture 2 §1.)
-5. **C** — `ease_out_back` is the overshoot curve. The 1.70158 constant is Robert Penner's; values 1.5-2.0 give a ~10% overshoot before settling. Used for "pop" juice on score-changes, button presses, coin pickups. (Lecture 2 §2.)
-6. **C** — Squash-and-stretch is on the *art*, not the hitbox. `pygame.transform.scale_by(frame, (1.0, scale_y))` and blit. The collision rectangle does not deform. (Lecture 2 §4, "Three things to notice", item 3.)
-7. **C** — 24 px / 400 ms is boss-explosion territory; player hits should be ~6 px / 150 ms; landings ~4 px / 100 ms. The dose matters more than the formula. (Lecture 2 §5, Nijman tuning table.)
-8. **C** — Presentation is bound to state transitions. The "arrived from airborne" flag is the canonical cross-state field. Spawning from the input handler or collision code is the "scattered effects" antipattern the lecture explicitly argues against. (Lecture 2 §6, §7.)
-9. **A** — `enter()` starts the loop, `exit()` stops it. The pattern that pairs setup with teardown was named in Week 5 Lecture 2 §2 as "asymmetric `enter`/`exit` is the State pattern's version of `malloc` without `free`." Week 6 §7 lights it up with SFX. (Lecture 2 §7.)
-10. **C** — Screen shake. Nijman's 30-minute talk is named *The Art of Screenshake* for a reason. Cheap, universal, instantly recognisable. The full talk demos shake on twenty different events; the lecture's exercise implements four. (Lecture 2 §5 and §8; *resources.md* for the talk.)
+**C** — Screen shake. Nijman's 30-minute talk is named *The Art of Screenshake* for a reason. Cheap, universal, instantly recognisable. The full talk demos shake on twenty different events; the lecture's exercise implements four. (Lecture 2 §5 and §8; *resources.md* for the talk.)
+
+
+---
 
 </details>
 
----
-
 If you scored under 7, re-read the lecture sections cited in the answers you missed. If you scored 9 or 10, you're ready for the [homework](./homework.md).
+
+---

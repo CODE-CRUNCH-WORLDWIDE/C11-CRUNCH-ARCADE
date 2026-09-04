@@ -11,6 +11,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Inputs, outputs, side effects, return values.
 - D) `enter`, `update`, `exit`, `change_state`.
 
+<details>
+<summary>Answer</summary>
+
+**B** — States, current state, events, transition function. (Lecture 1 §2.) `enter`/`update`/`exit` are part of the State pattern, not the FSM definition.
+
+</details>
+
 ---
 
 **Q2.** A player can be in `idle`, `run`, `jump`, or `fall`. Pressing JUMP while in `fall` should do nothing (no double-jump). In a hand-rolled FSM with a `TRANSITIONS: dict[(State, Event), State]`, how is "do nothing" expressed?
@@ -19,6 +26,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) The dict has no entry for `(State.FALL, Event.JUMP_PRESSED)`; the event is silently dropped (or logged) and the state does not change.
 - C) An explicit `if state == State.FALL and event == JUMP_PRESSED: return`.
 - D) Pygame's `pygame.event.set_blocked(pygame.K_SPACE)` while airborne.
+
+<details>
+<summary>Answer</summary>
+
+**B** — No entry in the table = no transition. The guard against double-jump is the *absence* of a row, not an `if` check. (Lecture 1 §3 and §6.)
+
+</details>
 
 ---
 
@@ -29,6 +43,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Update physics → check transitions → render → collect events for next frame.
 - D) Decide transitions → collect events → render → run behaviour.
 
+<details>
+<summary>Answer</summary>
+
+**B** — Collect events, decide transitions, run state behaviour, render. The order is load-bearing; reversing collect and decide gives one-frame-stale behaviour. (Lecture 1 §4.)
+
+</details>
+
 ---
 
 **Q4.** A *state* and an *event* are not the same thing. Which pair correctly names one of each?
@@ -37,6 +58,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `JUMP_PRESSED` (event) and `MOVE_RELEASED` (event).
 - C) `RUN` (state) and `JUMP_PRESSED` (event).
 - D) `vy = -650` (state) and `grounded = True` (event).
+
+<details>
+<summary>Answer</summary>
+
+**C** — `RUN` is a state (a noun, a behaviour mode); `JUMP_PRESSED` is an event (a verb, a trigger). Beginners conflate these and the lecture explicitly separates them. (Lecture 1 §2.)
+
+</details>
 
 ---
 
@@ -47,6 +75,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The State pattern uses less memory.
 - D) The State pattern is required by `pygame.sprite.Sprite`.
 
+<details>
+<summary>Answer</summary>
+
+**B** — The class definitions colocate state-name, behaviour, and lifecycle slots. The transition table becomes per-state knowledge in each `update`. (Lecture 2 §1 and §2.)
+
+</details>
+
 ---
 
 **Q6.** A `JumpState` sets `char.vy = -JUMP_VEL` somewhere. Where does this assignment belong?
@@ -55,6 +90,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) In the input handler, when the SPACE key is pressed.
 - C) In `JumpState.enter`. The velocity change is a *one-time side effect of becoming a jumper*; it belongs in the entry hook, not in per-frame update or per-input handler.
 - D) In `IdleState.exit`, because that's the state being left.
+
+<details>
+<summary>Answer</summary>
+
+**C** — Side effects of *becoming* a state belong in `enter`. Setting `vy` in `update` makes the upward kick re-apply every frame; setting it in the input handler is the state-leak shape. (Lecture 2 §2 and §3, "JumpState.enter" example.)
+
+</details>
 
 ---
 
@@ -65,6 +107,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Race conditions, deadlocks, and livelocks.
 - D) GIL contention, garbage-collection pauses, and import order.
 
+<details>
+<summary>Answer</summary>
+
+**B** — The three classic bugs from Lecture 2 §8 (and previewed in Lecture 1 §12). The State pattern makes each one structurally harder to write.
+
+</details>
+
 ---
 
 **Q8.** A pushdown automaton (state stack) is the right tool for which of the following?
@@ -73,6 +122,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) Pause menu overlaid on gameplay. The gameplay state is *suspended* and resumes from the exact frame when the pause is popped — push and pop, not transition.
 - C) Replacing the player's `IdleState` with a `RunState` when the player presses an arrow key.
 - D) Loading levels from `.csv` files.
+
+<details>
+<summary>Answer</summary>
+
+**B** — Pause is a *push*, not a transition. The underlying state is preserved and resumed on pop. (Lecture 2 §5.)
+
+</details>
 
 ---
 
@@ -83,6 +139,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) For performance — two distance checks are cheaper than one.
 - D) Because Pygame's distance function returns approximate values.
 
+<details>
+<summary>Answer</summary>
+
+**B** — Hysteresis is the gap between "enter" and "leave" thresholds. Without the gap, the FSM oscillates at the boundary. Same trick a thermostat uses. (Challenge 1 hints + general control theory.)
+
+</details>
+
 ---
 
 **Q10.** Per Lecture 2, where should per-state data (e.g. `AttackState`'s 400 ms swing timer) live by default?
@@ -92,26 +155,16 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) In a global dict keyed by character ID.
 - D) In a pygame.event.Event payload.
 
----
-
-## Answer key
-
 <details>
-<summary>Click to reveal answers</summary>
+<summary>Answer</summary>
 
-1. **B** — States, current state, events, transition function. (Lecture 1 §2.) `enter`/`update`/`exit` are part of the State pattern, not the FSM definition.
-2. **B** — No entry in the table = no transition. The guard against double-jump is the *absence* of a row, not an `if` check. (Lecture 1 §3 and §6.)
-3. **B** — Collect events, decide transitions, run state behaviour, render. The order is load-bearing; reversing collect and decide gives one-frame-stale behaviour. (Lecture 1 §4.)
-4. **C** — `RUN` is a state (a noun, a behaviour mode); `JUMP_PRESSED` is an event (a verb, a trigger). Beginners conflate these and the lecture explicitly separates them. (Lecture 1 §2.)
-5. **B** — The class definitions colocate state-name, behaviour, and lifecycle slots. The transition table becomes per-state knowledge in each `update`. (Lecture 2 §1 and §2.)
-6. **C** — Side effects of *becoming* a state belong in `enter`. Setting `vy` in `update` makes the upward kick re-apply every frame; setting it in the input handler is the state-leak shape. (Lecture 2 §2 and §3, "JumpState.enter" example.)
-7. **B** — The three classic bugs from Lecture 2 §8 (and previewed in Lecture 1 §12). The State pattern makes each one structurally harder to write.
-8. **B** — Pause is a *push*, not a transition. The underlying state is preserved and resumed on pop. (Lecture 2 §5.)
-9. **B** — Hysteresis is the gap between "enter" and "leave" thresholds. Without the gap, the FSM oscillates at the boundary. Same trick a thermostat uses. (Challenge 1 hints + general control theory.)
-10. **B** — Per-state data on the state instance by default; only cross-state fields on the character. (Lecture 2 §6.)
+**B** — Per-state data on the state instance by default; only cross-state fields on the character. (Lecture 2 §6.)
+
+
+---
 
 </details>
 
----
-
 If you scored under 7, re-read the lecture sections cited in the answers you missed. If you scored 9 or 10, you're ready for the [homework](./homework.md).
+
+---

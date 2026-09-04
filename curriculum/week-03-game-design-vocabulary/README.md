@@ -20,6 +20,14 @@ By the end of this week, you will be able to:
 - **Record** a before/after juice-comparison video of your own game and explain in 200 words what changed and why it feels different.
 - **Critique** another learner's game using the vocabulary in this week's lectures, without resorting to "it feels good" or "it feels bad."
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4053` — Analyse and critique a game design in the field's vocabulary: mechanics, dynamics and aesthetics, and the pillars of game feel. |
+| Industry | Sit a player in front of your build, watch without narrating, and turn what you saw into three specific changes you can defend to the rest of the team. |
+| Beyond the bar | The critique has to be published as evidence rather than opinion: a thirty-second side-by-side capture, the un-polished build preserved under its own tag, and a 200-word write-up in the week's vocabulary — `challenges/challenge-01-juice-comparison-video.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Week 1** (the game loop and delta time) and **Week 2** (collisions and physics-lite). Specifically:

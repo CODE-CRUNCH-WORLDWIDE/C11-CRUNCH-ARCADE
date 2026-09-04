@@ -24,6 +24,14 @@ By the end of this week, you will be able to:
 - **Track-wrap** by re-walking the twelve weeks and naming, for each week, the *one subsystem* that ended up in the capstone build. The wrap is an explicit ritual — there is a sidebar in `resources.md` and a section in `homework.md` that asks you to write the twelve-line index. Learners who complete the index in their own words will retrieve the toolbox faster on every future project. Learners who skip it will eventually relearn Week 4's tilemap from scratch because they forgot they had a working implementation in a folder on their disk.
 - **Cite** the five free references — *Godot export docs*, *Godot HTML5 export*, *itch.io developer docs*, *OpenGameArt*, *Freesound* — and explain what each one was for in your specific shipped build. The citations go in `CREDITS.md` and in the itch.io page's footer.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Scope, produce and ship a complete playable build, and defend the scope decisions that got it out of the door. |
+| Industry | Ship on a date: cut features into a written log instead of arguing about them, gate the week on a playable prototype by Tuesday, and run the post-upload checks from a fresh browser. |
+| Beyond the bar | The deliverable is public and permanent — four platform exports, a storefront page written for a stranger, a thirty-second trailer in six beats, and a credits file that honours every attribution-required asset — `lecture-notes/03-the-itch-page-the-trailer-and-the-credits.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1-11**. Specifically:

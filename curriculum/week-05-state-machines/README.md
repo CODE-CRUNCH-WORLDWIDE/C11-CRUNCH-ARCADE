@@ -26,6 +26,14 @@ By the end of this week, you will be able to:
 - **Avoid** the three classic FSM bugs: forgotten exit-actions, illegal transitions silently succeeding, and state-leak where one state mutates fields that another state then misinterprets.
 - **Ship** a four-state player character built on the State pattern, running on top of last week's tilemap.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4053` — Model character and enemy behaviour with finite state machines, including hierarchy and a state stack. |
+| Industry | Take a function that has grown into nested flags and refactor it so that next month's behaviour costs a class definition instead of a re-read of the whole file. |
+| Beyond the bar | It assigns the same character twice — once as a hand-rolled transition table, once as the State pattern — then adds a pushdown automaton for pause and dialog, so the learner can defend the choice rather than inherit it — `homework.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1, 2, 3, and 4**. Specifically:

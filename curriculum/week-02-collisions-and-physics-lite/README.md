@@ -21,6 +21,14 @@ By the end of this week, you will be able to:
 - **Reflect** a velocity component on bounce, including a restitution coefficient less than 1 so the ball loses energy on each contact.
 - **Diagnose** the "ball that won't settle" bug where floating-point noise keeps a resting body forever twitching, and apply the small-velocity-snap fix.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Detect collisions between moving bodies, resolve the overlap, and integrate simple physics over time. |
+| Industry | Diagnose a motion bug from what the player sees — a body that passes through a wall, a resting body that never settles — and name the sampling or floating-point cause before touching the code. |
+| Beyond the bar | It makes tunnelling a deliverable rather than a warning: a problem that builds the demo, drives the body faster than its own width per frame, and reports the speed at which the miss starts — `homework.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Week 1**. Specifically:

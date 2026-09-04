@@ -11,6 +11,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `input → update → render`
 - D) `input → render → update`
 
+<details>
+<summary>Answer</summary>
+
+**C** — `input → update → render`. Input must be first so update sees the current frame's input; render must be last so it shows the just-updated world. (Lecture 1 §2.)
+
+</details>
+
 ---
 
 **Q2.** What happens if your Pygame loop runs forever without ever calling `pygame.event.get()` (or `pygame.event.pump()`)?
@@ -19,6 +26,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) The window appears, then freezes, and the OS marks the app "not responding" because event-queue activity is the OS's liveness check.
 - C) The CPU pegs at 100% but the window is fine.
 - D) Pygame raises an exception after 1 second.
+
+<details>
+<summary>Answer</summary>
+
+**B** — The OS uses event-queue activity as a liveness check. Stop pumping it and the OS shows "not responding". (Lecture 1 §4.)
+
+</details>
 
 ---
 
@@ -29,6 +43,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The circle moves about 2.4x slower on the 144 Hz monitor.
 - D) The circle does not move at all unless you explicitly opt into 144 Hz.
 
+<details>
+<summary>Answer</summary>
+
+**B** — At 144 fps the loop runs 2.4x more often, so a per-frame increment moves the circle 2.4x further per second. This is the canonical "naive bug". (Lecture 2 §1.)
+
+</details>
+
 ---
 
 **Q4.** Which is the correct way to make a circle's movement frame-rate-independent?
@@ -37,6 +58,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `pos += speed_per_second * dt`, where `dt` is seconds since the previous frame.
 - C) `pos += speed_per_second / fps`, where `fps` is the current frame rate.
 - D) `pos = pos + speed * pygame.time.get_ticks()`.
+
+<details>
+<summary>Answer</summary>
+
+**B** — Pixels per second times seconds equals pixels. The math should be in physical units, not frame units. (Lecture 2 §2.)
+
+</details>
 
 ---
 
@@ -47,6 +75,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Frames — `clock.tick` returns a frame count.
 - D) Microseconds — Pygame's internal unit is µs.
 
+<details>
+<summary>Answer</summary>
+
+**B** — `clock.tick` returns elapsed milliseconds; dividing by 1000 yields seconds. Keep your update code in seconds; convert at the boundary. (Lecture 2 §2.)
+
+</details>
+
 ---
 
 **Q6.** Which Pygame function should you use to read held movement keys like WASD?
@@ -55,6 +90,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `pygame.key.get_pressed()` each frame.
 - C) `pygame.input.read_keyboard_state()`.
 - D) `sys.stdin.read()`.
+
+<details>
+<summary>Answer</summary>
+
+**B** — `pygame.key.get_pressed()` returns the current key state every frame, perfect for held movement. `KEYDOWN` fires once per press and is for one-shot actions. (Lecture 2 §8.)
+
+</details>
 
 ---
 
@@ -65,6 +107,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The player can't move at all — the keys cancel.
 - D) Pygame raises a key-conflict error.
 
+<details>
+<summary>Answer</summary>
+
+**B** — Diagonal vectors have magnitude `~1.41x` an axis-aligned vector. You must normalise the direction vector before multiplying by speed. (Lecture 2 §9.)
+
+</details>
+
 ---
 
 **Q8.** At a 60 fps target, your frame budget per loop iteration is approximately:
@@ -73,6 +122,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) 16.6 ms
 - C) 60 ms
 - D) 100 ms
+
+<details>
+<summary>Answer</summary>
+
+**B** — `1 / 60 ≈ 0.0166 s = 16.6 ms`. Memorise this number. (Lecture 2 §3.)
+
+</details>
 
 ---
 
@@ -83,6 +139,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The CPU heats up if `dt` exceeds 33 ms.
 - D) It's required by the Pygame API.
 
+<details>
+<summary>Answer</summary>
+
+**B** — A frame that took 10 seconds (alt-tab) returns `dt = 10.0`. Multiplied by a 300 px/s speed, the player jumps 3000 pixels — game state corruption. (Lecture 2 §4.)
+
+</details>
+
 ---
 
 **Q10.** Godot's `_process(delta)` and Pygame's hand-rolled game loop are best described as:
@@ -92,26 +155,16 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) Identical — Godot's `_process` is implemented in Pygame under the hood.
 - D) Godot is for 3D only; the comparison doesn't apply.
 
----
-
-## Answer key
-
 <details>
-<summary>Click to reveal answers</summary>
+<summary>Answer</summary>
 
-1. **C** — `input → update → render`. Input must be first so update sees the current frame's input; render must be last so it shows the just-updated world. (Lecture 1 §2.)
-2. **B** — The OS uses event-queue activity as a liveness check. Stop pumping it and the OS shows "not responding". (Lecture 1 §4.)
-3. **B** — At 144 fps the loop runs 2.4x more often, so a per-frame increment moves the circle 2.4x further per second. This is the canonical "naive bug". (Lecture 2 §1.)
-4. **B** — Pixels per second times seconds equals pixels. The math should be in physical units, not frame units. (Lecture 2 §2.)
-5. **B** — `clock.tick` returns elapsed milliseconds; dividing by 1000 yields seconds. Keep your update code in seconds; convert at the boundary. (Lecture 2 §2.)
-6. **B** — `pygame.key.get_pressed()` returns the current key state every frame, perfect for held movement. `KEYDOWN` fires once per press and is for one-shot actions. (Lecture 2 §8.)
-7. **B** — Diagonal vectors have magnitude `~1.41x` an axis-aligned vector. You must normalise the direction vector before multiplying by speed. (Lecture 2 §9.)
-8. **B** — `1 / 60 ≈ 0.0166 s = 16.6 ms`. Memorise this number. (Lecture 2 §3.)
-9. **B** — A frame that took 10 seconds (alt-tab) returns `dt = 10.0`. Multiplied by a 300 px/s speed, the player jumps 3000 pixels — game state corruption. (Lecture 2 §4.)
-10. **B** — Both engines compute delta time and pass it to user-supplied per-frame code. Pygame makes you write the `while` loop; Godot writes it for you and calls `_process(delta)`. Same idea. (Lecture 1 §6.)
+**B** — Both engines compute delta time and pass it to user-supplied per-frame code. Pygame makes you write the `while` loop; Godot writes it for you and calls `_process(delta)`. Same idea. (Lecture 1 §6.)
+
+
+---
 
 </details>
 
----
-
 If you scored under 7, re-read the lecture sections cited in the answers you missed. If you scored 9 or 10, you're ready for the [homework](./homework.md).
+
+---

@@ -25,6 +25,14 @@ By the end of this week, you will be able to:
 - **Profile** a shader at the level of "is it cheap or expensive". A texture sample is cheap; a long loop with branches is expensive; `pow`, `exp`, and `sin` are cheap on modern GPUs but free on no GPU. You can read the Godot profiler's `frame_time_gpu` reading and react to it.
 - **Cite** the three free shader references — *The Book of Shaders*, the *Godot 4 shader docs*, and the *GLSL 4.60 specification* — and explain which is for first contact, which is for production, and which is for "the engine did something I do not understand and I need to read the language standard."
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4720` — Name the stages of the rendering pipeline, and write a fragment shader that samples a texture, reads uniforms and animates over time. |
+| Industry | Add polish to a build that already works without changing how it plays, and know which passes cost enough to matter on the weakest target you ship to. |
+| Beyond the bar | It takes a stranger's shader off the largest public shader library, ports it into the engine's dialect, and asks for 200 words on what had to change and why — `challenges/challenge-01-port-a-shadertoy.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1-9**. Specifically:

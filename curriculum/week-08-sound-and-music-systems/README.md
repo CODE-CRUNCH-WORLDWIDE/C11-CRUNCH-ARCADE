@@ -26,6 +26,14 @@ By the end of this week, you will be able to:
 - **Source** assets from Freesound and OpenGameArt under CC0 / CC-BY licences, track attribution in a `CREDITS.md`, and recognise the licence mismatches that make a clip un-shippable.
 - **Frame-budget** the audio mix — a stereo 44.1 kHz mix with eight SFX channels and one music stream costs ~0.4 ms per frame on a modern laptop and is sound-card-blocked, not CPU-bound.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Build and balance a game's audio: sound effects, music, and the mix that holds them together. |
+| Industry | Author an asset to spec and clear its licence — trim a loop to a zero crossing on a beat boundary, export to the format the engine wants, and record the attribution before shipping. |
+| Beyond the bar | A paper deliverable graded as design: the full bus tree and ducking rules for a fighting game's mix, defended against three concrete scenarios, with no code accepted in its place — `challenges/challenge-02-design-a-mixer-for-a-fighting-game.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1-7**. Specifically:

@@ -11,6 +11,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `pygame.mixer.set_format(...)`.
 - D) `pygame.mixer.configure(...)`.
 
+<details>
+<summary>Answer</summary>
+
+**B** — `pygame.mixer.pre_init` before `pygame.init`. The order is non-negotiable; `init` lazily creates a mixer if `pre_init` was not called. Lecture 1 §3.
+
+</details>
+
 ---
 
 **Q2.** Lecture 1 §4-5 contrasts `pygame.mixer.Sound` with `pygame.mixer.music`. Which statement is accurate?
@@ -19,6 +26,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) `Sound` decodes the entire clip into RAM at load; `music` streams from disk and is a singleton (only one music track plays at a time).
 - C) `Sound` and `music` are aliases for the same object.
 - D) `Sound` is deprecated in Pygame 2.5 and should not be used.
+
+<details>
+<summary>Answer</summary>
+
+**B** — `Sound` is RAM-resident, `music` is a streaming singleton. The 1 MB rule of thumb: above that, stream. Lecture 1 §4-5.
+
+</details>
 
 ---
 
@@ -29,6 +43,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) A subclass of `pygame.mixer.Channel` with additional fields.
 - D) A USB hardware device for audio output.
 
+<details>
+<summary>Answer</summary>
+
+**A** — A bus is a named multiplier with parent. The effective-volume walk is the whole abstraction. Lecture 2 §1.
+
+</details>
+
 ---
 
 **Q4.** Lecture 2 §2 describes *ducking*. The minimal duck implementation lowers the music bus by approximately:
@@ -37,6 +58,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) -12 dB (~30% linear) during voice playback, restoring to the previous level when the voice ends.
 - C) Zero — ducking does not change the bus volume, only the bus mute flag.
 - D) The exact volume the player sets in the settings menu.
+
+<details>
+<summary>Answer</summary>
+
+**B** — Duck to ~30% linear (-12 dB) for the duration of the voice, restore on the endevent. Lecture 2 §2.
+
+</details>
 
 ---
 
@@ -47,6 +75,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) `Sound` objects compress better on disk than `music` files.
 - D) `pygame.mixer.music` cannot be looped.
 
+<details>
+<summary>Answer</summary>
+
+**B** — `pygame.mixer.music` is a singleton. Two stems require two `Sound` objects on dedicated channels. Lecture 2 §3.
+
+</details>
+
 ---
 
 **Q6.** Lecture 2 §4 implements 2D spatial attenuation. The exercise's `distance_attenuation` function uses a *linear* curve from `min_distance` to `max_distance`. The reason for linear rather than physically-accurate inverse-square is:
@@ -55,6 +90,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) Inverse-square sounds wrong for game audio — sounds drop off too quickly, and the listener feels deaf two screens away. Linear with min/max clamping gives the player intuitive control.
 - C) Inverse-square is not implementable in Python.
 - D) Pygame's `set_volume` only accepts linear values.
+
+<details>
+<summary>Answer</summary>
+
+**B** — Inverse-square is physically correct but sounds wrong in game audio. Linear with clamping is the practical default. Lecture 2 §4.1.
+
+</details>
 
 ---
 
@@ -65,6 +107,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The music file's loop point is encoded in a metadata tag that Pygame ignores.
 - D) The music file's BPM changes mid-loop.
 
+<details>
+<summary>Answer</summary>
+
+**B** — The seam is bit-perfect concatenation; any waveform discontinuity becomes a click. Cut at zero-crossings and (when needed) cross-fade. Lecture 3 §1.
+
+</details>
+
 ---
 
 **Q8.** Lecture 3 §3 picks file formats per clip type. The recommended formats are:
@@ -73,6 +122,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - B) WAV for music, OGG for SFX.
 - C) OGG Vorbis for music (streamable + loop-clean if authored), WAV for short SFX (sample-accurate + zero decode cost), never MP3 for anything that needs to loop.
 - D) FLAC for everything (lossless).
+
+<details>
+<summary>Answer</summary>
+
+**C** — OGG for music, WAV for short SFX, never MP3 for loops. The MP3 priming-delay problem breaks the seam. Lecture 3 §3.
+
+</details>
 
 ---
 
@@ -83,6 +139,13 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) It requires a non-attribution clause.
 - D) It cannot be used outside the European Union.
 
+<details>
+<summary>Answer</summary>
+
+**B** — Share-alike forces your derivative work under CC-BY-SA, which most commercial game licences cannot satisfy. Avoid CC-BY-SA for commercial. Lecture 3 §4.3.
+
+</details>
+
 ---
 
 **Q10.** Lecture 3 §5 maps this week's Pygame concepts to Godot 4.x `AudioServer`. The Pygame `play_spatial_sfx` function with manual distance and pan math is replaced in Godot by:
@@ -92,21 +155,15 @@ Ten multiple-choice questions. Take it with your lecture notes closed. Aim for 9
 - C) The `AudioEffectReverb` effect on the SFX bus.
 - D) `AudioServer.set_listener_position(...)` plus a manual `compute_attenuation(...)` call per frame.
 
----
+<details>
+<summary>Answer</summary>
 
-## Answer key (do not peek until you have committed answers)
-
-1. **B** — `pygame.mixer.pre_init` before `pygame.init`. The order is non-negotiable; `init` lazily creates a mixer if `pre_init` was not called. Lecture 1 §3.
-2. **B** — `Sound` is RAM-resident, `music` is a streaming singleton. The 1 MB rule of thumb: above that, stream. Lecture 1 §4-5.
-3. **A** — A bus is a named multiplier with parent. The effective-volume walk is the whole abstraction. Lecture 2 §1.
-4. **B** — Duck to ~30% linear (-12 dB) for the duration of the voice, restore on the endevent. Lecture 2 §2.
-5. **B** — `pygame.mixer.music` is a singleton. Two stems require two `Sound` objects on dedicated channels. Lecture 2 §3.
-6. **B** — Inverse-square is physically correct but sounds wrong in game audio. Linear with clamping is the practical default. Lecture 2 §4.1.
-7. **B** — The seam is bit-perfect concatenation; any waveform discontinuity becomes a click. Cut at zero-crossings and (when needed) cross-fade. Lecture 3 §1.
-8. **C** — OGG for music, WAV for short SFX, never MP3 for loops. The MP3 priming-delay problem breaks the seam. Lecture 3 §3.
-9. **B** — Share-alike forces your derivative work under CC-BY-SA, which most commercial game licences cannot satisfy. Avoid CC-BY-SA for commercial. Lecture 3 §4.3.
-10. **B** — `AudioStreamPlayer2D` does spatial automatically. Our 30 lines of distance math reduce to one node and three editor properties. Lecture 3 §5.2.
+**B** — `AudioStreamPlayer2D` does spatial automatically. Our 30 lines of distance math reduce to one node and three editor properties. Lecture 3 §5.2.
 
 ---
+
+</details>
 
 *Score yourself. 9-10 is a pass; 7-8 means re-read the lecture for any question you missed; below 7 means re-read all three lectures before starting the mini-project.*
+
+---

@@ -25,6 +25,14 @@ By the end of this week, you will be able to:
 - **Translate** the Pygame two-cursor demo into Godot 4.x. The server-bind and client-connect lines become `ENetMultiplayerPeer.create_server` / `.create_client`. The "send my cursor position" loop becomes an `@rpc("any_peer", "call_local", "unreliable")` annotated GDScript function. The state synchronisation becomes a `MultiplayerSynchronizer` node configured in the editor. Same mental model; one-tenth the code.
 - **Bandwidth-budget** a multiplayer game. At 20 Hz with 32-byte snapshots and 8 players, the server sends 8 x 32 x 20 = 5120 bytes/sec to each client and 8x that aggregate; well under any modern uplink. Above 64 Hz or with hundreds of players the math demands delta-encoding, area-of-interest filtering, and other techniques out of scope for this week.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4053` — Reason about networked play: the networking models, the transport, the latency budget, and the techniques that hide latency from the player. |
+| Industry | Measure the link you are actually shipping on — round-trip time, jitter, loss — and size the buffer and the snapshot rate from those numbers rather than from a default. |
+| Beyond the bar | It goes below the engine to raw UDP sockets and builds snapshot interpolation and a jitter buffer by hand, then asks for a rollback-netcode design on paper detailed enough to hand to a collaborator — `challenges/challenge-02-design-a-rollback-netcode-sketch.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1-8**. Specifically:

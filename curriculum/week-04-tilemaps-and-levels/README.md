@@ -23,6 +23,14 @@ By the end of this week, you will be able to:
 - **Design** a level in Tiled, export it, and load it in your engine in under five minutes once the loader is written.
 - **Ship** a 2D platformer prototype with three loadable levels selectable from a level-select screen.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CS 4455` — Represent a level as data, author it in an external editor, load it at run time, and drive a camera over a world larger than the screen. |
+| Industry | Keep engine and content separable so a designer ships a new level by editing a file — no source change, no engineer in the loop. |
+| Beyond the bar | It sets a constraint the acceptance criteria actually test — three levels ship and the loader code does not move between them — and pairs it with an off-screen cull done in integer math and budgeted in tiles per frame — `challenges/challenge-01-3-loadable-levels.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **Weeks 1, 2, and 3**. Specifically:

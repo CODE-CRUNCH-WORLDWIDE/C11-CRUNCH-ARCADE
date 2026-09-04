@@ -18,6 +18,14 @@ By the end of this week, you will be able to:
 - **Reason** about the frame budget: at 60 fps you have roughly 16.6 ms per frame, and every system you add eats into that.
 - **Compare** Pygame's loop to the equivalent in other engines (Godot's `_process(delta)`, Unity's `Update()`) so when you switch in Week 8 it feels like a renaming exercise, not a rewrite.
 
+## Standards this week meets
+
+| Bar | What this week is measured against |
+| --- | --- |
+| University | `CAP 4053` — Implement the real-time loop of a game — input, update, render — and make motion independent of the rate at which frames are drawn. |
+| Industry | Ship a build that runs at the same speed on every machine it lands on, and be able to say where the 16.6 ms of a frame went. |
+| Beyond the bar | It writes the same loop three ways — an explicit Pygame `while`, Godot's `_process(delta)`, Unity's `Update()` — in the first week, before either engine is installed, so the later move to Godot is a renaming exercise — `homework.md` |
+
 ## Prerequisites
 
 This week assumes you have completed **C1 weeks 1–7** or have equivalent skill. Specifically:
